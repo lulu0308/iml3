@@ -21,4 +21,4 @@ typedef struct {
 model_symbol_table symbol_table;
 
 
-int insert_symbol(t_asm_line line);
+int insert_symbol(t_instruction instruction);
