@@ -1,6 +1,6 @@
 typedef struct header{
     
-} ;
+};
 
 typedef struct data_section{
 
