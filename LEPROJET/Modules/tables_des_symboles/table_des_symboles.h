@@ -8,8 +8,8 @@ typedef struct  {
 
     char  nom_label[MAX_LABEL_SIZE];
     int valeur;
-    enum status { CODE , DATA , UNDEFINED};
-    enum scope { LOCAL , GLOBAL , EXTERN}
+    enum status {CODE , DATA , UNDEFINED};
+    enum scope {LOCAL , GLOBAL , EXTERN};
 
 } symbol;
 
