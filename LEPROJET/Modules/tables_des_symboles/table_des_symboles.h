@@ -18,7 +18,6 @@ typedef struct {
     symbol table[MAX_SYMBOL_COUNT];
 } model_symbol_table;
 
-model_symbol_table symbol_table;
-
+//model_symbol_table symbol_table; (à déclarer dans assembleur)
 
 int insert_symbol(t_instruction instruction);
