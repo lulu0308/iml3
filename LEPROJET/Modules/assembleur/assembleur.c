@@ -1,8 +1,8 @@
 
-static int compteur;
+static int compteur1;
 function passe1(t_asm_line line, t_asm_directive directive)
 {
-  while (line != '/0')
+  while (!fin-de-fichier())
   {
     parse_line();
     if (line != '#')
@@ -14,13 +14,13 @@ function passe1(t_asm_line line, t_asm_directive directive)
           printf("erreur double définition");
         }else{
           insert_symbol (line.label, inst_info1 table1 []);
-          compteur ++;
+          compteur1 ++;
         }
       }
       if (line.instruction_type == ASM_DIRECTIVE)
       {
         lg_data = ??;
-        compteur = compteur + lg_data;
+        compteur1 = compteur1 + lg_data;
       }
       if (!recherche(line.label))
       {
@@ -36,7 +36,7 @@ function passe1(t_asm_line line, t_asm_directive directive)
       }
       if (line.instruction_type == NONE)
       {
-        compteur == 0;
+        compteur1 == 0;
         /* entrer le nom section dans TS*/
       }
       if (line.instruction_type == ASM_INSTRUCTION)
@@ -44,7 +44,7 @@ function passe1(t_asm_line line, t_asm_directive directive)
         if (valide)
         {
         lg_instr = ??;
-        compteur = compteur + lg_instr;
+        compteur1 = compteur + lg_instr;
         }else{
           printf("erreur instruction invalide");
         }
@@ -53,8 +53,41 @@ function passe1(t_asm_line line, t_asm_directive directive)
   }
 }
 
-          
-          
-function passe2(){}
+
+static int compteur2;  
+function passe2(){
+  while (!fin-de-fichier())
+  {
+    parse_line();
+    if (line != '#')
+    {
+      if (line.instruction_type == NONE)
+      {
+        compteur1 == 0;
+        /* mettre à jour l'entête*/
+      }
+      if (line.instruction_type == ASM_INSTRUCTION)
+      {
+        lg_instr = ??;
+        //assembler instr
+        //ecrire code instr
+        compteur1 = compteur + lg_instr;
+      }
+      if (line.instruction_type == ASM_DIRECTIVE)
+      {
+        lg_data = ??;
+        compteur1 = compteur1 + lg_data;
+        //traiter directive
+      }
+    }
+  }
+  //maj entete
+  //ecrire tgre
+  //ecrire autres infos
+}
+    
+  
+  
+}
 
 static model_symbol_table symbol_table;
