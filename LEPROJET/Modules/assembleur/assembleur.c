@@ -19,7 +19,7 @@ function passe1(t_asm_line line, t_asm_directive directive)
       }
       if (line.instruction_type == ASM_DIRECTIVE)
       {
-        lg_data = ??;
+        lg_data = line.directive.int_operands;
         compteur1 = compteur1 + lg_data;
       }
       if (!recherche(line.label))
