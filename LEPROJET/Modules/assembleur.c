@@ -192,4 +192,6 @@ function passe2(){
   //ecrire tgre
   //ecrire autres infos
 }
-   
+ 
+
+static model_symbol_table symtable;
