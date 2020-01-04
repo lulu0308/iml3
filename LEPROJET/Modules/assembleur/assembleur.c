@@ -44,7 +44,7 @@ function passe1(t_asm_line line, t_asm_directive directive)
         if (valide)
         {
         lg_instr = ??;
-        compteur1 = compteur + lg_instr;
+        compteur1 = compteur1 + lg_instr;
         }else{
           printf("erreur instruction invalide");
         }
@@ -71,12 +71,12 @@ function passe2(){
         lg_instr = ??;
         //assembler instr
         //ecrire code instr
-        compteur1 = compteur + lg_instr;
+        compteur2 = compteur2 + lg_instr;
       }
       if (line.instruction_type == ASM_DIRECTIVE)
       {
         lg_data = ??;
-        compteur1 = compteur1 + lg_data;
+        compteur2 = compteur2 + lg_data;
         //traiter directive
       }
     }
