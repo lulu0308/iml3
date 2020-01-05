@@ -9,7 +9,7 @@ typedef struct p_instruction{
 } node_t_instruction;
 
 /*Regarder l'init dans insctruction.c */
-int is_pseudo(t_instruction);
+int is_pseudo(int x);
 int get_size_of_pseudo(t_instruction);
 node_t_instruction * get_inst_sequence_trad(t_instruction);
  
