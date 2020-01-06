@@ -1,0 +1,95 @@
+-------------------------------------------------------------------------
+POLYTECH MARSEILLE/Département Informatique    ALT A4 18/19
+
+                PROJET INTERFACE MATERIEL LOGICIEL
+    " Assembleur et Editeur de Liens Chargeur pour SPIM"
+--------------------------------------------------------------------------
+
+Fichier : errata_doc_spim.text
+Contenu : erreurs Codage des Instructions du MIPS 
+Auteur : Léon Mugwaneza
+-----------------------------------------------------------
+
+Ce fichier contient une liste (surement non exhaustive) des erreurs
+ dans la documentation "Assemblers, Linkers, and the SPIM Simulator".
+Note: Dans le fichier ops.h fourni dans l'archive CODOPS.tgz, ces 
+      toutes ces erreurs ont déjà été corrigées. 
+
+I/La figure A19 page A-54 : MIPS opcode map
+--------------------------------------------
+La figure A19 (MIPS opcode map) page A-54 de " Assemblers, Linkers and
+the SPIM Simulator" contient pas mal d'erreurs:
+
+Colonne 1 intitulée op(31:26) : (champ code opération)
+-----------------------------------------------------
+ A partir de l'instruction lb jusqu'à la fin de la colonne 
+(instruction swc3)
+ il faut retrancher 1 à la valeur indiquée. Ce qui donne 0x20 
+pour lb, 0x21 pour lh, ... 0x26 pour lwr, 0x28 pour sb, .., 
+0x2b pour sw, 0x2e pour swr, 0x30 pour lwc0, ..., 0x33 
+pour lwc3, 0x38 pour swc0, ..., 0x3b pour swc3.
+ 
+
+Colonne 3 intitulée (16:16)
+---------------------------
+Il faut lire   0 bczf
+               1 bczt
+ au lieu de deux fois bczt
+
+Colonne 4 intitulée funct (4:0)
+-------------------------------
+1) Le titre de la colonne devrait etre funct(5:0) car le champ 
+funct est sur 6 bits.
+2) le champ funct de l'instrution rfe a la valeur 16 (0x10) 
+et non 15 pour l'intruction rte qui n'existe pas.
+La  valeur de ce champ donnée page A-74 (0x20) est donc 
+elle aussi incorrecte (voir plus loin pour le codage de rfe).
+
+Colonne 6 intitulée funct(5:0)
+------------------------------
+Il faut rajouter l'instruction sllv ( champ funct = 4) 
+juste après sra.
+
+
+
+II/ Le reste de la doc
+-------------------------
+-----> les pages A-55 à A-75:
+
+1)  le champs op des instructions coprocesseur est à 
+interpréter comme suit :
+     a) instructions lwcz : 0x3z représente 11 suivi 
+        de la valeur de z en
+        binaire sur 4 bits(ce qui donne 110010 = 0x32 
+        pour lwc2 par exemple).
+     b) istructions swcz : 0x3(1-z) représente 111 suivi
+        de la valeur de z en binaire sur 3 bits (ce qui
+        donne 111010 = 0x3a pour swc2, etc.)
+     c) les instructions mtcz et mfcz, cfcz : 0x1z represente
+         01 suivi de la valeur de z en binaire sur 4 bits.
+
+2) L'intruction rfe (page A-74) est de format R avec les 
+    valeurs suivantes pour les divers champs :
+     op = 0x10 (6bits), rs=0x10(5bits), rt=0(5bits), rd=0(5bits),
+     shamt=0(5bits), et funct=0x10(6bits).
+
+3) Page A-75, l'instruction break appel système avec paramètre dans
+   l'instruction) a une opérande (ce qui fait  "break code").
+   Le codage indiqué dans la documentation est le bon, mais SPIM
+   considère cette instruction comme étant de format R et n'utilise
+   que les 5 bits du champs rd pour le code. L'instruction break 
+   est donc codée comme suit : op=0 (6bits), rs=rt=shamt=0(5bits),
+   rd=code(5bits), funct=0xd(6bits). L'opérande code ne peut donc
+   prendre que 32 valeurs différentes (dans spim la valeur 1 est 
+   réservé au debugger et est utilisée pour mettre des points 
+   d'arrêt : l'instruction "break 1" est refusée par
+   l'assembleur).
+
+4) Tout champ non utilisé dans une instruction doit prendre
+   la valeur 0.
+
+5) Les instructions mthi et mtlo ont une opérande rs (ce qui 
+   donne "mthi rs" et "mtlo rs" (page A-69)).
+
+----------------------- end of file errata_doc_spim.text----------------------
+
