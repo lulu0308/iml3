@@ -1,0 +1,1 @@
+static model_symbol_table symbol_table;
