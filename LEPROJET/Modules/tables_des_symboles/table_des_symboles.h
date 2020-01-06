@@ -13,7 +13,7 @@ typedef struct  {
 
 typedef struct {
     int effective_size;
-    symbol table[MAX_SYMBOL_COUNT];
+    symbol table[MAX_SYMBOL_COUNT][MAX_SYMBOL_COUNT];
 } model_symbol_table;
 
 //model_symbol_table symbol_table; (à déclarer dans assembleur)
