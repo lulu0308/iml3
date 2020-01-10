@@ -1,0 +1,212 @@
+    .text
+ menu :
+		 sw 	 $ra 	-4($sp)	
+		 addiu 	 $sp 	 $sp 	 -4 
+		 lui  $a0 , 0
+		 jal 	afficher_chaine 		
+		 lui $a0, ch1
+		 jal 	afficher_chaine 		
+		 lui $4, ch2
+		 jal 	afficher_chaine 		
+		 lui $4, ch3
+		 jal 	afficher_chaine 		
+		 lui $4, ch4
+		 jal 	afficher_chaine 		
+		 lui $4, ch5
+		 jal 	afficher_chaine 		
+		 lui $4, ch6
+		 jal 	afficher_chaine 		
+		 lui $4, ch7
+		 jal 	afficher_chaine 		
+		 lui $4, ch0
+		 jal 	afficher_chaine 		
+		 lui $4, alaligne
+		 jal 	afficher_chaine 		
+		 lui $4, choix
+		 jal 	afficher_chaine 		
+		 addiu 	 $sp 	 $sp 	 4 
+		 lw 	 $ra 	-4($sp)	
+		 jr 	 $ra 		
+    .globl main
+ main :
+		 sw 	 $ra 	-4($sp)	
+		 sw 	 $s0 	-8($sp)	
+		 sw 	 $s1 	-12($sp)	
+		 sw 	 $s2 	-16($sp)	
+		 addiu 	 $sp 	 $sp 	 -16 
+		 jal 	init_mem 		
+		 jal 	creer_arbre_vide 		
+			addi $18, $2, 0
+		 jal 	menu 		
+		 jal 	lire_entier 		
+			addi $16, $2, 0
+		 beq 	 $s0 	 $0 	fin_while 
+ while :
+			slt $t0, $16, $0
+		beq $t0, $0, fin_switch
+		lui $8, 7
+			slt $t0, $16, $8
+		beq $t0, $0, fin_switch
+		lui $8, 4
+			mult $16, $8
+		mflo $8
+ 		 lw 	 $t0 	JT 	
+		 jr 	 $t0 		
+ case1 :
+		 jal 	creer_arbre_vide 		
+			addi $18, $2, 0
+		 j 	fin_switch 		
+ case2 :
+		 lui $4, saisieinserer
+		 jal 	afficher_chaine 		
+		 jal 	lire_entier 		
+			addi $17, $2, 0
+			addi $4, $18, 0
+			addi $5, $17, 0
+		 jal 	inserer 		
+			addi $18, $2, 0
+		 j 	fin_switch 		
+ case3 :
+		 beq 	 $s2 	 $0 	elsemain1 
+			addi $4, $18, 0
+		 jal 	afficher_arbre_decroissant 		
+		 j 	finifmain1 		
+ elsemain1 :
+		 lui $4, arbrevide
+		 jal 	afficher_chaine 		
+ finifmain1 :
+		 j 	fin_switch 		
+ case4 :
+		 lui $4, saisierechercher
+		 jal 	afficher_chaine 		
+		 jal 	lire_entier 		
+			addi $17, $2, 0
+			addi $4, $18, 0
+			addi $5, $17, 0
+		 jal 	rechercher 		
+		 beq 	 $v0 	 $0 	elsemain2 
+		 lui $4, present
+		 jal 	afficher_chaine 		
+			beq $0, $0, elsemain2
+ elsemain2 :
+		 lui $4, absent
+		 jal 	afficher_chaine 		
+ finifmain2 :
+		 j 	fin_switch 		
+ case5 :
+			addi $4, $18, 0
+		 jal 	afficher_max 		
+		 j 	fin_switch 		
+ case6 :
+			addi $4, $18, 0
+		 jal 	supprimer_max 		
+			addi $18, $2, 0
+		 j 	fin_switch 		
+ case7 :
+			addi $4, $18, 0
+		 jal 	supprimer_racine 		
+			addi $18, $2, 0
+		 j 	fin_switch 		
+ fin_switch :
+		 jal 	menu 		
+		 jal 	lire_entier 		
+			addi $16, $2, 0
+		 j 	while 		
+ fin_while :
+		lui $2, 0
+		 addiu 	 $sp 	 $sp 	 16 
+		 lw 	 $ra 	-4($sp)	
+		 lw 	 $s0 	-8($sp)	
+		 lw 	 $s1 	-12($sp)	
+		 lw 	 $s2 	-16($sp)	
+		 jr 	 $ra 		
+  .data 
+  .asciiz 
+------------------Meu-----------------
+
+.asciiz 
+------------------Meu-----------------
+
+ chmenu :
+  .asciiz  1 : Creer un arbre vide 
+
+.asciiz  1 : Creer un arbre vide 
+
+ ch1 :
+  .asciiz  2 : Inserer un nouvel element 
+
+.asciiz  2 : Inserer un nouvel element 
+
+ ch2 :
+  .asciiz  3 : Afficher l'arbre dans l'ordre decroissant 
+
+.asciiz  3 : Afficher l'arbre dans l'ordre decroissant 
+
+ ch3 :
+  .asciiz  4 : Rechercher un element
+
+.asciiz  4 : Rechercher un element
+
+ ch4 :
+  .asciiz  5 : Afficher la valeur maximale 
+
+.asciiz  5 : Afficher la valeur maximale 
+
+ ch5 :
+  .asciiz  6 : Supprimer un element ayant la valeur maximale 
+
+.asciiz  6 : Supprimer un element ayant la valeur maximale 
+
+ ch6 :
+  .asciiz  7 : Afficher la valeur du noeud racine et supprimer le noeud racine 
+
+.asciiz  7 : Afficher la valeur du noeud racine et supprimer le noeud racine 
+
+ ch7 :
+  .asciiz  0 : Quitter 
+
+.asciiz  0 : Quitter 
+
+ ch0 :
+  .asciiz 
+
+.asciiz 
+
+ alaligne :
+  .asciiz choix : 
+
+.asciiz choix : 
+
+ choix :
+  .asciiz nombre a inserer ? 
+.asciiz nombre a inserer ? 
+ saisieinserer :
+  .asciiz nombre a rechercher ? 
+.asciiz nombre a rechercher ? 
+ saisierechercher :
+  .asciiz  present!
+
+.asciiz  present!
+
+ present :
+  .asciiz  absent!
+
+.asciiz  absent!
+
+ absent :
+  .asciiz  arbre vide! 
+
+.asciiz  arbre vide! 
+
+ arbrevide :
+  .align 2
+    .word  arbre vide! 
+
+ JT :
+    .word case1
+    .word case2
+    .word case3
+    .word case4
+    .word case5
+    .word case6
+    .word case7
